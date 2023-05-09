@@ -1,0 +1,14 @@
+{
+  "parameter":
+  {
+    "local_server" : "True" ,
+    "local_uri" : "mysql://root:@localhost./allaboutcoding",
+    "production_uri": "mysql://root:@localhost./allaboutcoding",
+    "fb_url": "https://www.facebook.com/profile.php?id=100092322651800",
+    "Github": "https://github.com/Jatin00001",
+    "twitter": "https://twitter.com/home",
+      "Copyright": "Jatin coding ",
+    "title_of_web": "All About Coding",
+    "sub_title_of_web": "New Technology of Coding"
+  }
+}
