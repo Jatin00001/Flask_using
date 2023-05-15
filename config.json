@@ -7,8 +7,12 @@
     "fb_url": "https://www.facebook.com/profile.php?id=100092322651800",
     "Github": "https://github.com/Jatin00001",
     "twitter": "https://twitter.com/home",
-      "Copyright": "Jatin coding ",
+    "Copyright": "Jatin coding ",
     "title_of_web": "All About Coding",
-    "sub_title_of_web": "New Technology of Coding"
+    "sub_title_of_web": "New Technology of Coding",
+    "gmail-user": "jj9986109@gmail.com",
+    "gmail-password": "sjatin@###2##",
+    "about_me": "I am a coder and i build this website using flask and python !",
+    "no_of_post": 3
   }
 }
