@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,session
 from flask_mail import Mail
 import json
 from flask_sqlalchemy import SQLAlchemy
@@ -10,6 +10,7 @@ with open('config.json','r') as c :
     parameter = json.load(c)["parameter"]
 
 app = Flask(__name__)
+app.secret_key = 'super-secret-key'
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = '465',
@@ -69,10 +70,23 @@ def contact():
 @app.route("/about")
 def about():
     return render_template('about.html', parameter = parameter)
-@app.route("/login")
-def login_route():
-    return render_template('login.html', parameter = parameter)
+# @app.route("/login")
+# def login_route():
+#     return render_template('login.html', parameter = parameter)
 
+@app.route("/dashboard", methods = ['GET', 'POST'])
+def dashboard():
+    if "user" in session and session['user'] == parameter['admin-user']:
+        return render_template('dashboard.html', parameter=parameter)
+
+    if (request.method == 'POST'):
+        print("in post session")
+        username = request.form.get('user')
+        userpass = request.form.get('password')
+        if( (username==parameter['admin-user']) and (userpass == parameter['admin-password'])):
+            session['user'] = username
+            return render_template('dashboard.html',parameter=parameter, )
+    return render_template('login.html', parameter=parameter)
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()

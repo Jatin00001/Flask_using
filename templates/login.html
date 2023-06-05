@@ -6,44 +6,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>Login</title>
+  <!-- <link rel="icon" type="image/x-icon" href=" {{ url_for('static', filename = 'assets/favicon.ico ' )  }} " /> -->
+  <!-- Font Awesome icons (free version)-->
+  <!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
+  <!-- Google fonts-->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" /> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" /> -->
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="  {{ url_for('static', filename = 'css/styles.css' ) }}   " rel="stylesheet" />
   <style>
-
+    .divider:after,
+    .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #b72727;
+    }
+    .color{
+      background-color:#baaedb;
+    }
+    .color-2{
+      background-color:#ccc3e5;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2 class="text-center">Login</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email">Email address:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-      </div>
-      <div class="text-center">
-        <p>Don't have an account? <a href="#">Sign up</a></p>
-        <p><a href="#">Forgot password?</a></p>
-      </div>
-    </form>
-  </div>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">{{parameter['title_of_web']}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a></li>
+                <!-- <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post">Post</a></li> -->
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/dashboard">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-      // Perform form validation and login logic here
-    });
-  </script>
+<!-- Section for form -->
+  <section class="color vh-100 border-top">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <!-- for static and manual logo juist change json file and you will see that img you set and uncomment them! -->
+          <!-- {% set fname = 'assets/logo/' + parameter['login_logo']  %}
+          
+          <img src="{{ url_for('static', filename = fname) }} "
+            class="img-fluid" alt="Phone image"> -->
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <form action="/dashboard" method="post">
+            <!-- user input -->
+            <h3 class="row d-flex justify-content-center align-items-center font-italic font-weight-light">Login please.....</h3>
+            <!-- <h3 class="row d-flex justify-content-center align-items-center">Admin panel</h3> -->
+            <div class="form-outline mb-4">
+              <input type="text" id="user" class="form-control form-control-lg" name="user" />
+              <label class="form-label" for="user">Email address</label>
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <input type="password" id="password" class="form-control form-control-lg" name="password" />
+              <label class="form-label" for="password">Password</label>
+            </div>
+  
+            <!-- <div class="d-flex justify-content-around align-items-center mb-4">
+               Checkbox 
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="True" id="checkbox" name="checkbox" checked />
+                <label class="form-check-label" for="checkbox"> Remember me </label>
+              </div>
+              <a href="#!">Forgot password?</a>
+            </div> -->
+  
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button> 
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
 
 </html>
