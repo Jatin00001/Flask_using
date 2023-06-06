@@ -1,0 +1,67 @@
+{%extends "layout.html" %}
+{% block body %}
+        <!-- Page Header-->
+
+        <header class="masthead" style="background-image: url(' {{ url_for('static', filename = 'assets/img/home-bg.jpg') }}  ')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>{{parameter['title_of_web']}}</h1>
+                            <span class="subheading">{{parameter['sub_title_of_web']}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- add form -->
+                    we can add!
+                    <h1>upload a file</h1>
+                    we will add a uploader here!
+                    <h1>Add/Edit Post</h1>
+                    <form id="contactForm" action="/edit/{{sno}}" method="post" >
+                        <div class="form-floating">
+                            <input class="form-control" id="title" name="title" type="text" placeholder="Enter your title..." />
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="form-floating">
+                            <input class="form-control" id="shead" name="shead" type="text" placeholder="Enter your title..." />
+                            <label for="shead">shead</label>
+                        </div>
+
+
+                        
+
+
+                        <div class="form-floating">
+                            <input class="form-control" id="slug" name="slug" type="text" placeholder="Enter your slug..." />
+                            <label for="slug">Slug</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control" name="content" id="content" cols="30" rows="10"  placeholder="Enter your content..."></textarea>
+                            <label for="content">Content</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input class="form-control" id="img_file" name="img_file" type="text" placeholder="Enter your img_file..." />
+                            <label for="img_file">Image File.</label>
+                        </div>
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        <!-- Submit Button-->
+                        <button class="btn btn-primary text-uppercase " id="submitButton" type="submit">Send</button>
+                    </form>
+
+
+                    <hr class="my-4" />
+                    <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
+                </div>
+            </div>
+        </div>
+      
+{% endblock %}

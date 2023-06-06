@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,session
+from flask import Flask,render_template,request,session,redirect
 from flask_mail import Mail
 import json
 from flask_sqlalchemy import SQLAlchemy
@@ -77,20 +77,55 @@ def about():
 @app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
     if "user" in session and session['user'] == parameter['admin-user']:
-        return render_template('dashboard.html', parameter=parameter)
+        posts = Posts.query.all()
+        print("in already post session")
+        return render_template('dashboard.html', parameter=parameter, posts=posts)
 
     if (request.method == 'POST'):
-        print("in post session")
+        # print("in post session")
         username = request.form.get('user')
         userpass = request.form.get('password')
         if( (username==parameter['admin-user']) and (userpass == parameter['admin-password'])):
             session['user'] = username
-            return render_template('dashboard.html',parameter=parameter, )
+            posts = Posts.query.all()
+            return render_template('dashboard.html',parameter=parameter, posts=posts)
     return render_template('login.html', parameter=parameter)
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html', parameter=parameter, post=post)
+
+
+@app.route("/edit/<string:sno>", methods=['GET', 'POST'])
+def edit(sno):
+    if "user" in session and session['user'] == parameter['admin-user']:
+        # print("in edit session")
+        if request.method == "POST":
+            # print("form input")
+            title = request.form.get('title')
+            shead = request.form.get('shead')
+            slug = request.form.get('slug')
+            content = request.form.get('content')
+            img_file = request.form.get('img_file')
+            date = datetime.now()
+            if sno == '0':
+                # print("in new post session")
+                post = Posts(title=title,subhead=shead, slug=slug, content=content, img_file=img_file, date=date)
+                db.session.add(post)
+                db.session.commit()
+            # else:
+            #     post = Posts.query.filter_by(sno=sno).first()
+            #     post.box_title = title
+            #     post.subhead = shead
+            #     post.slug = slug
+            #     post.content = content
+            #     post.img_file = img_file
+            #     post.date = date
+            #     db.session.commit()
+            #     return redirect('/edit/' + sno)
+
+    post = Posts.query.filter_by(sno=sno).first()
+    return render_template('edit.html', parameter=parameter,sno=sno)
 
 if __name__ == '__main__':
     app.run(debug=True,port=615000)
