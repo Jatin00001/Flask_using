@@ -26,11 +26,12 @@
                     <h1>Add/Edit Post</h1>
                     <form id="contactForm" action="/edit/{{sno}}" method="post" >
                         <div class="form-floating">
-                            <input class="form-control" id="title" name="title" type="text" placeholder="Enter your title..." />
+                            <input class="form-control" id="title" name="title" value="{{post.title}}" type="text" placeholder="Enter your title..." />
                             <label for="title">Title</label>
                         </div>
-                        <div class="form-floating">
-                            <input class="form-control" id="shead" name="shead" type="text" placeholder="Enter your title..." />
+
+                        <div class="form-floating ">
+                            <input class="form-control" id="shead"  name="shead" value="{{post.subhead}}" type="text" placeholder="Enter your title..." />
                             <label for="shead">shead</label>
                         </div>
 
@@ -39,17 +40,17 @@
 
 
                         <div class="form-floating">
-                            <input class="form-control" id="slug" name="slug" type="text" placeholder="Enter your slug..." />
+                            <input class="form-control" id="slug" name="slug" value="{{post.slug}}" type="text" placeholder="Enter your slug..." />
                             <label for="slug">Slug</label>
                         </div>
 
                         <div class="form-floating">
-                            <textarea class="form-control" name="content" id="content" cols="30" rows="10"  placeholder="Enter your content..."></textarea>
+                            <textarea class="form-control " style="height: 300px" name="content"  id="content" cols="30" rows="5"  placeholder="Enter your content...">{{post.content}}</textarea>
                             <label for="content">Content</label>
                         </div>
 
                         <div class="form-floating">
-                            <input class="form-control" id="img_file" name="img_file" type="text" placeholder="Enter your img_file..." />
+                            <input class="form-control" id="img_file" value="{{post.img_file}}" name="img_file" type="text" placeholder="Enter your img_file..." />
                             <label for="img_file">Image File.</label>
                         </div>
                         <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>

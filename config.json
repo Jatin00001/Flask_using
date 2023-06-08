@@ -16,6 +16,7 @@
     "no_of_post": 3,
     "login_logo": "log.jpg",
     "admin-user": "jatin",
-    "admin-password": "jatinjatin"
+    "admin-password": "jatinjatin",
+    "upload_location": "D:\\copy of web blog\\blog web\\static\\assets\\img"
   }
 }

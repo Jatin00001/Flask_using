@@ -1,9 +1,12 @@
 from flask import Flask,render_template,request,session,redirect
 from flask_mail import Mail
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 import json
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+import os
+import math
 
 
 with open('config.json','r') as c :
@@ -11,6 +14,7 @@ with open('config.json','r') as c :
 
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
+app.config['UPLOAD_FOLDER'] = parameter['upload_location']
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = '465',
@@ -113,19 +117,43 @@ def edit(sno):
                 post = Posts(title=title,subhead=shead, slug=slug, content=content, img_file=img_file, date=date)
                 db.session.add(post)
                 db.session.commit()
-            # else:
-            #     post = Posts.query.filter_by(sno=sno).first()
-            #     post.box_title = title
-            #     post.subhead = shead
-            #     post.slug = slug
-            #     post.content = content
-            #     post.img_file = img_file
-            #     post.date = date
-            #     db.session.commit()
-            #     return redirect('/edit/' + sno)
+            else:
+                print("else edit")
+                post = Posts.query.filter_by(sno=sno).first()
+                post.title = title
+                post.subhead = shead
+                post.slug = slug
+                post.content = content
+                post.img_file = img_file
+                post.date = date
+                db.session.commit()
+                return redirect('/edit/' + sno)
 
     post = Posts.query.filter_by(sno=sno).first()
-    return render_template('edit.html', parameter=parameter,sno=sno)
+    return render_template('edit.html', parameter=parameter,post=post, sno=sno)
+
+@app.route("/uploader", methods=['GET', 'POST'])
+def uploader():
+    if "user" in session and session['user'] == parameter['admin-user']:
+        if request.method == "POST":
+            f = request.files['file1']
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            return "Uploaded successfully"
+
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    return redirect('/dashboard')
+
+
+@app.route("/delete/<string:sno>" , methods=['GET', 'POST'])
+def delete(sno):
+    if "user" in session and session['user']==parameter['admin-user']:
+        post = Posts.query.filter_by(sno=sno).first()
+        db.session.delete(post)
+        db.session.commit()
+    return redirect("/dashboard")
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=615000)

@@ -19,9 +19,22 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="my-5">
+                        <p>Basic button</p>
+                        <a href="/edit/0"><button class="btn btn-primary text-uppercase">Create/Add a new post</button></a>
+                        <a href="/logout"><button class="btn btn-primary text-uppercase justify-content-end">Logout</button></a>
+                        <hr>
+                        <h3>Upload a File</h3>
+                        <div>
+                            <form action="/uploader" method="post" enctype="multipart/form-data">
+                                <label for="file1">Upload a file.</label>
+                                <input type="file" name="file1" id="file1">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+
                         <p>Admin panel !</p>
-                        <table>
-                            <thead>
+                        <table class="table table-light table-borderless   table-hover">
+                            <thead >
                                 <th>Sno</th>
                                 <th>Tittle</th>
                                 <th>Date</th>
@@ -34,8 +47,9 @@
                                         <td>{{post.sno}}</td>
                                         <td>{{post.title}}</td>
                                         <td>{{post.date}}</td>
-                                        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary text-uppercase">Edit</button></a></td>
-                                        <td><button class="btn btn-primary text-uppercase">Update</button></td>
+                                        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary text-uppercase">update</button></a></td>
+                                        <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary text-uppercase">Delete</button></a></td>
+                                        
                                         
                                     </tr>
                                 {% endfor %}
